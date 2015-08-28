@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  GeneralTableViewController.h
 //  Elevator
 //
 //  Created by user on 15/8/26.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
-
+@interface GeneralTableViewController : UITableViewController
 
 @end
-

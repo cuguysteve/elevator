@@ -10,11 +10,15 @@
 		CE8FB9CF1B8D6A0C00CA22D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9CE1B8D6A0C00CA22D3 /* main.m */; };
 		CE8FB9D21B8D6A0C00CA22D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9D11B8D6A0C00CA22D3 /* AppDelegate.m */; };
 		CE8FB9D51B8D6A0C00CA22D3 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9D41B8D6A0C00CA22D3 /* FirstViewController.m */; };
-		CE8FB9D81B8D6A0C00CA22D3 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9D71B8D6A0C00CA22D3 /* SecondViewController.m */; };
 		CE8FB9DB1B8D6A0C00CA22D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE8FB9D91B8D6A0C00CA22D3 /* Main.storyboard */; };
 		CE8FB9DD1B8D6A0C00CA22D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE8FB9DC1B8D6A0C00CA22D3 /* Images.xcassets */; };
 		CE8FB9E01B8D6A0C00CA22D3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8FB9DE1B8D6A0C00CA22D3 /* LaunchScreen.xib */; };
 		CE8FB9EC1B8D6A0D00CA22D3 /* ElevatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9EB1B8D6A0D00CA22D3 /* ElevatorTests.m */; };
+		CE8FB9F71B8D6AAA00CA22D3 /* GeneralTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9F61B8D6AAA00CA22D3 /* GeneralTableViewController.m */; };
+		CE8FB9FA1B8D7A3100CA22D3 /* DataObjectLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9F91B8D7A3100CA22D3 /* DataObjectLayer.m */; };
+		CE8FB9FD1B8D7C1A00CA22D3 /* ElevatorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9FC1B8D7C1A00CA22D3 /* ElevatorObject.m */; };
+		CEE396D91B903967000E4551 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE396D71B903967000E4551 /* DetailTableViewController.m */; };
+		CEE396DA1B903967000E4551 /* DetailTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE396D81B903967000E4551 /* DetailTableViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,14 +39,21 @@
 		CE8FB9D11B8D6A0C00CA22D3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CE8FB9D31B8D6A0C00CA22D3 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		CE8FB9D41B8D6A0C00CA22D3 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		CE8FB9D61B8D6A0C00CA22D3 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		CE8FB9D71B8D6A0C00CA22D3 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		CE8FB9DA1B8D6A0C00CA22D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE8FB9DC1B8D6A0C00CA22D3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE8FB9DF1B8D6A0C00CA22D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		CE8FB9E51B8D6A0C00CA22D3 /* ElevatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElevatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8FB9EA1B8D6A0D00CA22D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE8FB9EB1B8D6A0D00CA22D3 /* ElevatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElevatorTests.m; sourceTree = "<group>"; };
+		CE8FB9F51B8D6AAA00CA22D3 /* GeneralTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralTableViewController.h; sourceTree = "<group>"; };
+		CE8FB9F61B8D6AAA00CA22D3 /* GeneralTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralTableViewController.m; sourceTree = "<group>"; };
+		CE8FB9F81B8D7A3100CA22D3 /* DataObjectLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataObjectLayer.h; sourceTree = "<group>"; };
+		CE8FB9F91B8D7A3100CA22D3 /* DataObjectLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataObjectLayer.m; sourceTree = "<group>"; };
+		CE8FB9FB1B8D7C1A00CA22D3 /* ElevatorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElevatorObject.h; sourceTree = "<group>"; };
+		CE8FB9FC1B8D7C1A00CA22D3 /* ElevatorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElevatorObject.m; sourceTree = "<group>"; };
+		CEE396D61B903967000E4551 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
+		CEE396D71B903967000E4551 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
+		CEE396D81B903967000E4551 /* DetailTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailTableViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,12 +99,19 @@
 				CE8FB9D11B8D6A0C00CA22D3 /* AppDelegate.m */,
 				CE8FB9D31B8D6A0C00CA22D3 /* FirstViewController.h */,
 				CE8FB9D41B8D6A0C00CA22D3 /* FirstViewController.m */,
-				CE8FB9D61B8D6A0C00CA22D3 /* SecondViewController.h */,
-				CE8FB9D71B8D6A0C00CA22D3 /* SecondViewController.m */,
 				CE8FB9D91B8D6A0C00CA22D3 /* Main.storyboard */,
 				CE8FB9DC1B8D6A0C00CA22D3 /* Images.xcassets */,
 				CE8FB9DE1B8D6A0C00CA22D3 /* LaunchScreen.xib */,
 				CE8FB9CC1B8D6A0C00CA22D3 /* Supporting Files */,
+				CE8FB9F51B8D6AAA00CA22D3 /* GeneralTableViewController.h */,
+				CE8FB9F61B8D6AAA00CA22D3 /* GeneralTableViewController.m */,
+				CE8FB9F81B8D7A3100CA22D3 /* DataObjectLayer.h */,
+				CE8FB9F91B8D7A3100CA22D3 /* DataObjectLayer.m */,
+				CE8FB9FB1B8D7C1A00CA22D3 /* ElevatorObject.h */,
+				CE8FB9FC1B8D7C1A00CA22D3 /* ElevatorObject.m */,
+				CEE396D61B903967000E4551 /* DetailTableViewController.h */,
+				CEE396D71B903967000E4551 /* DetailTableViewController.m */,
+				CEE396D81B903967000E4551 /* DetailTableViewController.xib */,
 			);
 			path = Elevator;
 			sourceTree = "<group>";
@@ -204,6 +222,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE396DA1B903967000E4551 /* DetailTableViewController.xib in Resources */,
 				CE8FB9DB1B8D6A0C00CA22D3 /* Main.storyboard in Resources */,
 				CE8FB9E01B8D6A0C00CA22D3 /* LaunchScreen.xib in Resources */,
 				CE8FB9DD1B8D6A0C00CA22D3 /* Images.xcassets in Resources */,
@@ -224,8 +243,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE8FB9D81B8D6A0C00CA22D3 /* SecondViewController.m in Sources */,
+				CE8FB9FA1B8D7A3100CA22D3 /* DataObjectLayer.m in Sources */,
 				CE8FB9D21B8D6A0C00CA22D3 /* AppDelegate.m in Sources */,
+				CEE396D91B903967000E4551 /* DetailTableViewController.m in Sources */,
+				CE8FB9FD1B8D7C1A00CA22D3 /* ElevatorObject.m in Sources */,
+				CE8FB9F71B8D6AAA00CA22D3 /* GeneralTableViewController.m in Sources */,
 				CE8FB9D51B8D6A0C00CA22D3 /* FirstViewController.m in Sources */,
 				CE8FB9CF1B8D6A0C00CA22D3 /* main.m in Sources */,
 			);
@@ -424,6 +446,7 @@
 				CE8FB9F11B8D6A0D00CA22D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE8FB9F21B8D6A0D00CA22D3 /* Build configuration list for PBXNativeTarget "ElevatorTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +455,7 @@
 				CE8FB9F41B8D6A0D00CA22D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
