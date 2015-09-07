@@ -79,6 +79,8 @@
     cell.textLabel.text = elevator.address;
     cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" Call %@ via %@",elevator.contactPerson,elevator.contactNumber ];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    NSNumber* fontSize = @12;
+    cell.textLabel.font = [cell.textLabel.font fontWithSize:fontSize.floatValue];
     // Configure the cell...
     
     return cell;
