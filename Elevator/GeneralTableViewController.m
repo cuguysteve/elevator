@@ -66,15 +66,18 @@
     
     ElevatorObject* elevator = self.elevatorList[indexPath.row];
     
-    if (elevator.status == ALERTING) {
+    if (elevator.status == 0) {
         cell.imageView.image = [UIImage imageNamed:@"alert"];
 
-    }else if (elevator.status ==WARNING){
+    }else if (elevator.status ==1){
         cell.imageView.image = [UIImage imageNamed:@"warning"];
+    }else if (elevator.status ==2){
+        cell.imageView.image = [UIImage imageNamed:@"normal"];
+
     }
     
     cell.textLabel.text = elevator.address;
-    cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" %@ is owner, call %@",elevator.contactPerson,elevator.contactNumber ];
+    cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" Call %@ via %@",elevator.contactPerson,elevator.contactNumber ];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     // Configure the cell...
     

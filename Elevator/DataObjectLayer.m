@@ -58,17 +58,51 @@
     return nil;
 }
 
+//- (NSArray*) requestAllList{
+//    NSString* path = [self filePath];
+//    
+//    [self initData];
+//
+//    NSData* data = [[NSData alloc]initWithContentsOfFile:path];
+//    NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+//
+//    NSArray* list = [unarchiver decodeObjectForKey:@"elevatorList"];
+//    [unarchiver finishDecoding];
+//    return list;
+//}
+
 - (NSArray*) requestAllList{
-    NSString* path = [self filePath];
+    NSError *error;
     
-    [self initData];
+    //加载一个NSURL对象
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://127.0.0.1:8000/getall/"]];
+    //将请求的url数据放到NSData对象中
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+    NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
+    
+    NSLog(@"字典里面的内容为--》%@", projDic );
+    NSLog(@"error is %@", error);
+    
+    NSMutableArray* array = [[NSMutableArray alloc]init];
+    
+    NSEnumerator* enumkey = [projDic keyEnumerator];
+    
+    for (NSString* ob in enumkey){
+        ElevatorObject* el = [[ElevatorObject alloc]init];
+        el.sn = ob.intValue;
+        NSDictionary* eldic = [projDic objectForKey:ob];
+        NSString* status = [eldic objectForKey:@"status"];
+        el.status = status.intValue;
+        el.contactNumber = [eldic objectForKey:@"contact number"];
+        el.contactPerson = [eldic objectForKey:@"contact person"];
+        el.address = [eldic objectForKey:@"address"];
+        [array addObject:el];
 
-    NSData* data = [[NSData alloc]initWithContentsOfFile:path];
-    NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-
-    NSArray* list = [unarchiver decodeObjectForKey:@"elevatorList"];
-    [unarchiver finishDecoding];
-    return list;
+    }
+    
+    return array;
+    
 }
 
 - (void)initData{

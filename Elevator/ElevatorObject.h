@@ -18,7 +18,7 @@ enum ElevatorStatus {
 
 @property int sn;
 @property NSString* address;
-@property enum ElevatorStatus status;
+@property int status;
 @property NSString* contactPerson;
 @property NSString* contactNumber;
 @property NSString* problem;
