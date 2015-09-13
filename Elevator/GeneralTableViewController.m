@@ -10,7 +10,9 @@
 #import "DetailTableViewController.h"
 #import "DataObjectLayer.h"
 
-@interface GeneralTableViewController ()
+@interface GeneralTableViewController (){
+    DetailTableViewController* details;
+}
 
 @property NSArray* normalList;
 @property NSArray* warningList;
@@ -35,6 +37,15 @@
     self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
     if(self.timer){
         NSLog(@"timer is created");
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+
+    if ([segue.identifier isEqualToString:@"DetailsSegue"])
+    {
+        details = (DetailTableViewController *)segue.destinationViewController;
     }
 }
 
@@ -173,7 +184,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    DetailTableViewController* de = [[DetailTableViewController alloc] init];
+    
+    [self performSegueWithIdentifier:@"DetailsSegue" sender:nil];
+    
     ElevatorObject* ob = nil;
     if (indexPath.section == 0) {
         ob = self.alertList[indexPath.row];
@@ -185,11 +198,10 @@
     if (ob == nil) {
         return;
     }
-    de.elevator = ob;
     
-    [[self navigationController]pushViewController:de animated:YES];
+    details.elevator = ob;
     
-    [self performSegueWithIdentifier:@"DetailsSegue" sender:nil];
+//    [[self navigationController]pushViewController:de animated:YES];
 }
 
 /*

@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *date;
 @property (weak, nonatomic) IBOutlet UILabel *contactPerson;
 @property (weak, nonatomic) IBOutlet UILabel *contactNumber;
+- (IBAction)callContact:(id)sender;
 
 @end
 
@@ -43,19 +44,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)callContact:(id)sender{
+    NSString* tel = [NSString stringWithFormat:@"tel://%@", self.elevator.contactNumber ];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tel]];
+}
+
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -126,5 +120,4 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 @end
