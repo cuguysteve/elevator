@@ -18,7 +18,6 @@
 		CE8FB9FA1B8D7A3100CA22D3 /* DataObjectLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9F91B8D7A3100CA22D3 /* DataObjectLayer.m */; };
 		CE8FB9FD1B8D7C1A00CA22D3 /* ElevatorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9FC1B8D7C1A00CA22D3 /* ElevatorObject.m */; };
 		CEE396D91B903967000E4551 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE396D71B903967000E4551 /* DetailTableViewController.m */; };
-		CEE396DA1B903967000E4551 /* DetailTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE396D81B903967000E4551 /* DetailTableViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +52,6 @@
 		CE8FB9FC1B8D7C1A00CA22D3 /* ElevatorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElevatorObject.m; sourceTree = "<group>"; };
 		CEE396D61B903967000E4551 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		CEE396D71B903967000E4551 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
-		CEE396D81B903967000E4551 /* DetailTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailTableViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +109,6 @@
 				CE8FB9FC1B8D7C1A00CA22D3 /* ElevatorObject.m */,
 				CEE396D61B903967000E4551 /* DetailTableViewController.h */,
 				CEE396D71B903967000E4551 /* DetailTableViewController.m */,
-				CEE396D81B903967000E4551 /* DetailTableViewController.xib */,
 			);
 			path = Elevator;
 			sourceTree = "<group>";
@@ -222,7 +219,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEE396DA1B903967000E4551 /* DetailTableViewController.xib in Resources */,
 				CE8FB9DB1B8D6A0C00CA22D3 /* Main.storyboard in Resources */,
 				CE8FB9E01B8D6A0C00CA22D3 /* LaunchScreen.xib in Resources */,
 				CE8FB9DD1B8D6A0C00CA22D3 /* Images.xcassets in Resources */,

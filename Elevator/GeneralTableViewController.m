@@ -12,7 +12,10 @@
 
 @interface GeneralTableViewController ()
 
-@property NSArray* elevatorList;
+@property NSArray* normalList;
+@property NSArray* warningList;
+@property NSArray* alertList;
+
 @property DataObjectLayer* ol;
 @property NSTimer* timer;
 - (void)timerFired;
@@ -23,9 +26,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.ol = [[DataObjectLayer alloc]init];
 //    [self.ol initData];
-    self.elevatorList = [self.ol requestAllList];
+    self.normalList = [self.ol requestNormalList];
+    self.warningList = [self.ol requestWarningList];
+    self.alertList = [self.ol requestAlertList];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
     if(self.timer){
         NSLog(@"timer is created");
@@ -34,7 +40,40 @@
 
 - (void)timerFired{
     NSLog(@" timerFired");
-    self.elevatorList = [self.ol requestAllList];
+    NSArray* newAlertList = [self.ol requestAlertList];
+    bool showAlert = false;
+    NSMutableString* message = [[NSMutableString alloc]init];
+
+    
+    for(ElevatorObject* ob in [newAlertList objectEnumerator]){
+        if ([self.alertList containsObject:ob]) {
+            continue;
+        }
+        showAlert = true;
+        [message appendFormat:@"Alert: %@ \n",ob.address];
+    }
+
+// Using Local Notification when app is in background mode
+//        UILocalNotification* not = [[UILocalNotification alloc]init];
+//        if (not) {
+//            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+//            not.alertBody = [[NSString alloc]initWithFormat:@"new alert: %@",ob.address];
+//            not.alertAction = NSLocalizedString(@"Please check", nil);
+//            not.soundName = UILocalNotificationDefaultSoundName;
+//            not.applicationIconBadgeNumber++;
+//        }
+//        [[UIApplication sharedApplication]presentLocalNotificationNow:not];
+        
+        
+    if (showAlert) {
+        UIAlertView* alert  = [[UIAlertView alloc]initWithTitle:@"new alert" message:message delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+
+    
+    self.alertList = newAlertList;
+    self.warningList = [self.ol requestWarningList];
+    self.alertList = [self.ol requestAlertList];
     [self.tableView reloadData];
 }
 
@@ -48,39 +87,86 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.elevatorList count];
+    if (section == 0) {
+        if ([self.alertList count]==0) {
+            return 1;
+        }
+        return [self.alertList count];
+    }else if(section ==1){
+        if ([self.warningList count]==0) {
+            return 1;
+        }
+        return [self.warningList count];
+    }else{
+        if ([self.normalList count]==0) {
+            return 1;
+        }
+        return [self.normalList count];
+    }
+    return 0;
 }
 
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return @"Alert List";
+    }else if(section ==1){
+        return @"Warning List";
+    }else{
+        return @"Normal List";
+    }
+    return nil;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseIdentifier"];
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
     }
-    
-    ElevatorObject* elevator = self.elevatorList[indexPath.row];
-    
-    if (elevator.status == 0) {
-        cell.imageView.image = [UIImage imageNamed:@"alert"];
-
-    }else if (elevator.status ==1){
-        cell.imageView.image = [UIImage imageNamed:@"warning"];
-    }else if (elevator.status ==2){
-        cell.imageView.image = [UIImage imageNamed:@"normal"];
-
+    ElevatorObject* elevator = nil;
+    if (indexPath.section == 0) {
+        if ([self.alertList count]==0) {
+            cell.textLabel.text = @"None";
+        }else{
+            elevator = self.alertList[indexPath.row];
+            cell.imageView.image = [UIImage imageNamed:@"alert"];
+            cell.textLabel.text = elevator.address;
+            cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" Status change time: %@",elevator.date ];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            NSNumber* fontSize = @12;
+            cell.textLabel.font = [cell.textLabel.font fontWithSize:fontSize.floatValue];
+        }
+    }else if(indexPath.section == 1){
+        if ([self.warningList count]==0) {
+            cell.textLabel.text = @"None";
+        }else{
+            elevator = self.warningList[indexPath.row];
+            cell.imageView.image = [UIImage imageNamed:@"warning"];
+            cell.textLabel.text = elevator.address;
+            cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" Status change time: %@",elevator.date ];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            NSNumber* fontSize = @12;
+            cell.textLabel.font = [cell.textLabel.font fontWithSize:fontSize.floatValue];
+        }
+    }else{
+        if ([self.normalList count]==0) {
+            cell.textLabel.text = @"None";
+        }else{
+            elevator = self.normalList[indexPath.row];
+            cell.imageView.image = [UIImage imageNamed:@"normal"];
+            cell.textLabel.text = elevator.address;
+            cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" Status change time: %@",elevator.date ];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            NSNumber* fontSize = @12;
+            cell.textLabel.font = [cell.textLabel.font fontWithSize:fontSize.floatValue];
+        }
     }
     
-    cell.textLabel.text = elevator.address;
-    cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" Call %@ via %@",elevator.contactPerson,elevator.contactNumber ];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    NSNumber* fontSize = @12;
-    cell.textLabel.font = [cell.textLabel.font fontWithSize:fontSize.floatValue];
     // Configure the cell...
     
     return cell;
@@ -88,9 +174,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DetailTableViewController* de = [[DetailTableViewController alloc] init];
-    ElevatorObject* ob = self.elevatorList[indexPath.row];
-    de.sn = ob.sn;
+    ElevatorObject* ob = nil;
+    if (indexPath.section == 0) {
+        ob = self.alertList[indexPath.row];
+    }else if(indexPath.section ==1){
+        ob = self.warningList[indexPath.row];
+    }else{
+        ob = self.normalList[indexPath.row];
+    }
+    if (ob == nil) {
+        return;
+    }
+    de.elevator = ob;
+    
     [[self navigationController]pushViewController:de animated:YES];
+    
+    [self performSegueWithIdentifier:@"DetailsSegue" sender:nil];
 }
 
 /*

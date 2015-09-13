@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ElevatorObject.h"
 
 @interface DetailTableViewController : UITableViewController
 
-@property int sn;
+@property (retain) ElevatorObject* elevator;
 
 @end

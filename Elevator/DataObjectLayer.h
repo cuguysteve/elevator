@@ -14,6 +14,7 @@
 - (ElevatorObject*) requestBySn:(NSString*) sn;
 - (NSArray*) requestAlertList;
 - (NSArray*) requestWarningList;
+- (NSArray*) requestNormalList;
 - (NSArray*) requestAllList;
 
 - (void)initData;

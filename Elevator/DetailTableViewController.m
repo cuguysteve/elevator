@@ -9,6 +9,13 @@
 #import "DetailTableViewController.h"
 
 @interface DetailTableViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *address;
+@property (weak, nonatomic) IBOutlet UILabel *manufactor;
+@property (weak, nonatomic) IBOutlet UILabel *sn;
+@property (weak, nonatomic) IBOutlet UILabel *status;
+@property (weak, nonatomic) IBOutlet UILabel *date;
+@property (weak, nonatomic) IBOutlet UILabel *contactPerson;
+@property (weak, nonatomic) IBOutlet UILabel *contactNumber;
 
 @end
 
@@ -16,6 +23,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _address.text = _elevator.address;
+    _manufactor.text = @"";
+    _sn.text = [NSString stringWithFormat:@"%d",_elevator.sn];
+    _status.text = [NSString stringWithFormat:@"%d",_elevator.status];
+    _date.text = _elevator.date;
+    _contactNumber.text = _elevator.contactNumber;
+    _contactPerson.text = _elevator.contactPerson;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

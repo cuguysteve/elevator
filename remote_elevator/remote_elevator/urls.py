@@ -19,5 +19,7 @@ from my_elevator import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^getall/', views.get_all)
+    url(r'^getalert/', views.get_alert),
+    url(r'^getwarning/', views.get_warning),
+    url(r'^getnormal/', views.get_normal),
 ]
