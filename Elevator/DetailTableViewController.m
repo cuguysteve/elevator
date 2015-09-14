@@ -46,7 +46,11 @@
 
 - (IBAction)callContact:(id)sender{
     NSString* tel = [NSString stringWithFormat:@"tel://%@", self.elevator.contactNumber ];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tel]];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tel]];
+    NSURL* telURL = [NSURL URLWithString:tel];
+    UIWebView *mCallWebview = [[UIWebView alloc] init] ;
+    [self.view addSubview:mCallWebview];
+    [mCallWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
 }
 
 #pragma mark - Table view data source
