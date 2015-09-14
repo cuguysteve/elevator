@@ -57,13 +57,14 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://127.0.0.1:8000/getalert/"]];
     //将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
-    
-    NSLog(@"字典里面的内容为--》%@", projDic );
-    NSLog(@"error is %@", error);
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
+    
+    if (response == nil) {
+        return array;
+    }
+    //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+    NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
     
     NSEnumerator* enumkey = [projDic keyEnumerator];
     
@@ -92,12 +93,13 @@
     //将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
-    
-    NSLog(@"字典里面的内容为--》%@", projDic );
-    NSLog(@"error is %@", error);
-    
     NSMutableArray* array = [[NSMutableArray alloc]init];
+    
+    if (response == nil) {
+        return array;
+    }
+    
+    NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
     
     NSEnumerator* enumkey = [projDic keyEnumerator];
     
@@ -126,12 +128,13 @@
     //将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
-    
-    NSLog(@"字典里面的内容为--》%@", projDic );
-    NSLog(@"error is %@", error);
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
+    
+    if (response == nil) {
+        return array;
+    }
+    NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
     
     NSEnumerator* enumkey = [projDic keyEnumerator];
     
