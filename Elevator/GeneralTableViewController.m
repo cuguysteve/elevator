@@ -9,14 +9,15 @@
 #import "GeneralTableViewController.h"
 #import "DetailTableViewController.h"
 #import "DataObjectLayer.h"
+#import "MapViewController.h"
 
 @interface GeneralTableViewController (){
     DetailTableViewController* details;
+    MapViewController* map;
+    
 }
+- (IBAction)presentInMap:(id)sender;
 
-@property NSArray* normalList;
-@property NSArray* warningList;
-@property NSArray* alertList;
 
 @property DataObjectLayer* ol;
 @property NSTimer* timer;
@@ -34,7 +35,7 @@
     self.normalList = [self.ol requestNormalList];
     self.warningList = [self.ol requestWarningList];
     self.alertList = [self.ol requestAlertList];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
     if(self.timer){
         NSLog(@"timer is created");
     }
@@ -45,12 +46,18 @@
 
     if ([segue.identifier isEqualToString:@"DetailsSegue"])
     {
+        NSLog(@"go to details view");
         details = (DetailTableViewController *)segue.destinationViewController;
+    }
+    else if ([segue.identifier isEqualToString:@"presentInMap"]){
+        NSLog(@"go to map view");
+        map = (MapViewController *)segue.destinationViewController;
+        map.generalTable = self;
     }
 }
 
 - (void)timerFired{
-    NSLog(@" timerFired");
+    NSLog(@"timerFired");
     NSArray* newAlertList = [self.ol requestAlertList];
     bool showAlert = false;
     NSMutableString* message = [[NSMutableString alloc]init];
@@ -84,8 +91,9 @@
     
     self.alertList = newAlertList;
     self.warningList = [self.ol requestWarningList];
-    self.alertList = [self.ol requestAlertList];
+    self.normalList = [self.ol requestNormalList];
     [self.tableView reloadData];
+    map.refreshAnnotations;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,19 +111,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     if (section == 0) {
-        if ([self.alertList count]==0) {
-            return 1;
-        }
         return [self.alertList count];
     }else if(section ==1){
-        if ([self.warningList count]==0) {
-            return 1;
-        }
         return [self.warningList count];
     }else{
-        if ([self.normalList count]==0) {
-            return 1;
-        }
         return [self.normalList count];
     }
     return 0;
@@ -139,44 +138,30 @@
     }
     ElevatorObject* elevator = nil;
     if (indexPath.section == 0) {
-        if ([self.alertList count]==0) {
-            cell.textLabel.text = @"None";
-        }else{
             elevator = self.alertList[indexPath.row];
             cell.imageView.image = [UIImage imageNamed:@"alert"];
-            cell.textLabel.text = elevator.address;
-            cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" Status change time: %@",elevator.date ];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            NSNumber* fontSize = @12;
-            cell.textLabel.font = [cell.textLabel.font fontWithSize:fontSize.floatValue];
-        }
+
     }else if(indexPath.section == 1){
-        if ([self.warningList count]==0) {
-            cell.textLabel.text = @"None";
-        }else{
             elevator = self.warningList[indexPath.row];
             cell.imageView.image = [UIImage imageNamed:@"warning"];
-            cell.textLabel.text = elevator.address;
-            cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" Status change time: %@",elevator.date ];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            NSNumber* fontSize = @12;
-            cell.textLabel.font = [cell.textLabel.font fontWithSize:fontSize.floatValue];
-        }
     }else{
-        if ([self.normalList count]==0) {
-            cell.textLabel.text = @"None";
-        }else{
+//        if ([self.normalList count]==0) {
+//            cell.textLabel.text = @"None";
+//            cell.imageView.image = nil;
+//            cell.detailTextLabel.text = nil;
+//            return  cell;
+//        }else{
             elevator = self.normalList[indexPath.row];
             cell.imageView.image = [UIImage imageNamed:@"normal"];
-            cell.textLabel.text = elevator.address;
-            cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" Status change time: %@",elevator.date ];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            NSNumber* fontSize = @12;
-            cell.textLabel.font = [cell.textLabel.font fontWithSize:fontSize.floatValue];
-        }
+//        }
     }
     
     // Configure the cell...
+    cell.textLabel.text = elevator.address;
+    cell.detailTextLabel.text = [[NSString alloc]initWithFormat:@" Status change time: %@",elevator.date ];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    NSNumber* fontSize = @12;
+    cell.textLabel.font = [cell.textLabel.font fontWithSize:fontSize.floatValue];
     
     return cell;
 }
@@ -245,5 +230,4 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 @end

@@ -116,8 +116,15 @@
         [array addObject:el];
         
     }
-    
-    return array;
+    return [array sortedArrayUsingComparator:^(ElevatorObject* obj1,ElevatorObject* obj2){
+        if (obj1.date < obj2.date) {
+            return NSOrderedAscending;
+        };
+        if (obj1.date > obj2.date) {
+            return NSOrderedDescending;
+        };
+        return NSOrderedSame;
+    }];
 }
 
 - (NSArray*) requestNormalList{
