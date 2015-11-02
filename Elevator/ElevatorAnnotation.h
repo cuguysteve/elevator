@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MKAnnotation.h>
+#import <UIKit/UIImage.h>
 
 @interface ElevatorAnnotation : NSObject<MKAnnotation>
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
+@property (nonatomic,copy) UIImage *image;
 
 @end

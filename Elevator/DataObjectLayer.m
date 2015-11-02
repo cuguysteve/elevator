@@ -54,7 +54,7 @@
     NSError *error;
     
     //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://127.0.0.1:8000/getalert/"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetStatus0=1"]];
     //将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     
@@ -72,12 +72,31 @@
         ElevatorObject* el = [[ElevatorObject alloc]init];
         el.sn = ob.intValue;
         NSDictionary* eldic = [projDic objectForKey:ob];
-        NSString* status = [eldic objectForKey:@"status"];
-        el.status = status.intValue;
+        NSString* alarm = [eldic objectForKey:@"Alarm"];
+        switch (alarm.intValue) {
+            case 0:
+                el.status = ALERTING;
+                break;
+            case 1:
+                el.status = WARNING;
+                break;
+            case 2:
+                el.status = NORMAL;
+                break;
+            default:
+                break;
+        }
+        
         el.contactNumber = [eldic objectForKey:@"contact number"];
         el.contactPerson = [eldic objectForKey:@"contact person"];
-        el.address = [eldic objectForKey:@"address"];
-        el.date = [eldic objectForKey:@"date"];
+        el.address = [eldic objectForKey:@"Location"];
+        el.vendor = [eldic objectForKey:@"Ven"];
+        el.model = [eldic objectForKey:@"Model"];
+        NSString* longtitude = [eldic objectForKey:@"Longit"];
+        el.longtitude = longtitude.doubleValue;
+        NSString* latitude = [eldic objectForKey:@"Latit"];
+        el.latitude = latitude.doubleValue;
+        el.date = [eldic objectForKey:@"ConTime"];
         [array addObject:el];
         
     }
@@ -89,7 +108,7 @@
     NSError *error;
     
     //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://127.0.0.1:8000/getwarning/"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetStatus1=1"]];
     //将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
@@ -107,31 +126,52 @@
         ElevatorObject* el = [[ElevatorObject alloc]init];
         el.sn = ob.intValue;
         NSDictionary* eldic = [projDic objectForKey:ob];
-        NSString* status = [eldic objectForKey:@"status"];
-        el.status = status.intValue;
-        el.contactNumber = [eldic objectForKey:@"contact number"];
-        el.contactPerson = [eldic objectForKey:@"contact person"];
-        el.address = [eldic objectForKey:@"address"];
-        el.date = [eldic objectForKey:@"date"];
+        NSString* alarm = [eldic objectForKey:@"Alarm"];
+        switch (alarm.intValue) {
+            case 0:
+                el.status = ALERTING;
+                break;
+            case 1:
+                el.status = WARNING;
+                break;
+            case 2:
+                el.status = NORMAL;
+                break;
+            default:
+                break;
+        }
+        
+//        el.contactNumber = [eldic objectForKey:@"contact number"];
+//        el.contactPerson = [eldic objectForKey:@"contact person"];
+        el.address = [eldic objectForKey:@"Location"];
+        el.vendor = [eldic objectForKey:@"Ven"];
+        el.model = [eldic objectForKey:@"Model"];
+        NSString* longtitude = [eldic objectForKey:@"Longit"];
+        el.longtitude = longtitude.doubleValue;
+        NSString* latitude = [eldic objectForKey:@"Latit"];
+        el.latitude = latitude.doubleValue;
+        el.date = [eldic objectForKey:@"ConTime"];
         [array addObject:el];
         
     }
-    return [array sortedArrayUsingComparator:^(ElevatorObject* obj1,ElevatorObject* obj2){
-        if (obj1.date < obj2.date) {
-            return NSOrderedAscending;
-        };
-        if (obj1.date > obj2.date) {
-            return NSOrderedDescending;
-        };
-        return NSOrderedSame;
-    }];
+    
+    return array;
+//    return [array sortedArrayUsingComparator:^(ElevatorObject* obj1,ElevatorObject* obj2){
+//        if (obj1.date < obj2.date) {
+//            return NSOrderedAscending;
+//        };
+//        if (obj1.date > obj2.date) {
+//            return NSOrderedDescending;
+//        };
+//        return NSOrderedSame;
+//    }];
 }
 
 - (NSArray*) requestNormalList{
     NSError *error;
     
     //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://127.0.0.1:8000/getnormal/"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetStatus2=1"]];
     //将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
@@ -149,12 +189,31 @@
         ElevatorObject* el = [[ElevatorObject alloc]init];
         el.sn = ob.intValue;
         NSDictionary* eldic = [projDic objectForKey:ob];
-        NSString* status = [eldic objectForKey:@"status"];
-        el.status = status.intValue;
+        NSString* alarm = [eldic objectForKey:@"Alarm"];
+        switch (alarm.intValue) {
+            case 0:
+                el.status = ALERTING;
+                break;
+            case 1:
+                el.status = WARNING;
+                break;
+            case 2:
+                el.status = NORMAL;
+                break;
+            default:
+                break;
+        }
+        
         el.contactNumber = [eldic objectForKey:@"contact number"];
         el.contactPerson = [eldic objectForKey:@"contact person"];
-        el.address = [eldic objectForKey:@"address"];
-        el.date = [eldic objectForKey:@"date"];
+        el.address = [eldic objectForKey:@"Location"];
+        el.vendor = [eldic objectForKey:@"Ven"];
+        el.model = [eldic objectForKey:@"Model"];
+        NSString* longtitude = [eldic objectForKey:@"Longit"];
+        el.longtitude = longtitude.doubleValue;
+        NSString* latitude = [eldic objectForKey:@"Latit"];
+        el.latitude = latitude.doubleValue;
+        el.date = [eldic objectForKey:@"ConTime"];
         [array addObject:el];
         
     }
@@ -162,24 +221,12 @@
     return array;
 }
 
-//- (NSArray*) requestAllList{
-//    NSString* path = [self filePath];
-//    
-//    [self initData];
-//
-//    NSData* data = [[NSData alloc]initWithContentsOfFile:path];
-//    NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-//
-//    NSArray* list = [unarchiver decodeObjectForKey:@"elevatorList"];
-//    [unarchiver finishDecoding];
-//    return list;
-//}
 
 - (NSArray*) requestAllList{
     NSError *error;
     
     //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://127.0.0.1:8000/getall/"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetAll=1"]];
     //将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
@@ -190,21 +237,76 @@
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
     
+    // test用代码
+//    ElevatorObject* el = [[ElevatorObject alloc]init];
+//    
+//    NSDictionary* eldic = projDic;
+//    NSString* alarm = [eldic objectForKey:@"Alarm"];
+//    switch (alarm.intValue) {
+//        case 1:
+//            el.status = ALERTING;
+//            break;
+//        case 2:
+//            el.status = WARNING;
+//            break;
+//        case 3:
+//            el.status = NORMAL;
+//            break;
+//        default:
+//            break;
+//    }
+//    el.sn = 1;
+//    el.vendor = [eldic objectForKey:@"Ven"];
+//    el.model = [eldic objectForKey:@"Model"];
+//    NSString* longtitude = [eldic objectForKey:@"Longit"];
+//    el.longtitude = longtitude.doubleValue;
+//    NSString* latitude = [eldic objectForKey:@"Latit"];
+//    el.latitude = latitude.doubleValue;
+//    el.date = [eldic objectForKey:@"ConTime"];
+//    [array addObject:el];
+//    array sortedArrayUsingComparator:^NSComparisonResult(ElevatorObject* obj1, ElevatorObject* obj2) {
+//        return obj1.status<obj2.status;
+//    }
+
+    
+    // 正式代码
     NSEnumerator* enumkey = [projDic keyEnumerator];
     
     for (NSString* ob in enumkey){
         ElevatorObject* el = [[ElevatorObject alloc]init];
         el.sn = ob.intValue;
         NSDictionary* eldic = [projDic objectForKey:ob];
-        NSString* status = [eldic objectForKey:@"status"];
-        el.status = status.intValue;
+        NSString* alarm = [eldic objectForKey:@"Status"];
+        switch (alarm.intValue) {
+            case 0:
+                el.status = ALERTING;
+                break;
+            case 1:
+                el.status = WARNING;
+                break;
+            case 2:
+                el.status = NORMAL;
+                break;
+            default:
+                break;
+        }
+
         el.contactNumber = [eldic objectForKey:@"contact number"];
         el.contactPerson = [eldic objectForKey:@"contact person"];
-        el.address = [eldic objectForKey:@"address"];
-        el.date = [eldic objectForKey:@"date"];
+        el.address = [eldic objectForKey:@"Location"];
+        el.vendor = [eldic objectForKey:@"Ven"];
+        el.model = [eldic objectForKey:@"Model"];
+        NSString* longtitude = [eldic objectForKey:@"Longit"];
+        el.longtitude = longtitude.doubleValue;
+        NSString* latitude = [eldic objectForKey:@"Latit"];
+        el.latitude = latitude.doubleValue;
+        el.date = [eldic objectForKey:@"ConTime"];
         [array addObject:el];
 
     }
+//    [array sortedArrayUsingComparator:^NSComparisonResult(ElevatorObject* obj1, ElevatorObject* obj2) {
+//        return obj1.status < obj2.status;
+//    }];
     
     return array;
     

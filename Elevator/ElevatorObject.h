@@ -23,5 +23,9 @@ enum ElevatorStatus {
 @property NSString* contactNumber;
 @property NSString* problem;
 @property NSString* date;
+@property NSString* vendor;
+@property NSString* model;
+@property double longtitude;
+@property double latitude;
 
 @end

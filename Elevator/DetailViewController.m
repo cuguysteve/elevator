@@ -1,48 +1,33 @@
 //
-//  DetailTableViewController.m
+//  DetailViewController.m
 //  Elevator
 //
-//  Created by user on 15/8/28.
+//  Created by user on 15/10/21.
 //  Copyright (c) 2015年 user. All rights reserved.
 //
 
-#import "DetailTableViewController.h"
+#import "DetailViewController.h"
 
-
-@interface DetailTableViewController ()
+@interface DetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *address;
 @property (weak, nonatomic) IBOutlet UILabel *manufactor;
 @property (weak, nonatomic) IBOutlet UILabel *sn;
 @property (weak, nonatomic) IBOutlet UILabel *status;
 @property (weak, nonatomic) IBOutlet UILabel *date;
 @property (weak, nonatomic) IBOutlet UILabel *contactPerson;
-@property (weak, nonatomic) IBOutlet UIButton *switchButton;
 @property (weak, nonatomic) IBOutlet UILabel *contactNumber;
 - (IBAction)callContact:(id)sender;
-- (IBAction)stopElevator:(id)sender;
-
 @end
 
-@implementation DetailTableViewController
+@implementation DetailViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _address.text = _elevator.address;
     _manufactor.text = @"";
     _sn.text = [NSString stringWithFormat:@"%d",_elevator.sn];
-    switch (_elevator.status) {
-        case 0:
-             _status.text = @"Alarm";
-            break;
-        case 1:
-            _status.text = @"Warning";
-            break;
-        case 2:
-            _status.text = @"Normal";
-            break;
-        default:
-            break;
-    }
+    _status.text = [NSString stringWithFormat:@"%d",_elevator.status];
     _date.text = _elevator.date;
     _contactNumber.text = _elevator.contactNumber;
     _contactPerson.text = _elevator.contactPerson;
@@ -54,46 +39,15 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)callContact:(id)sender{
     NSString* tel = [NSString stringWithFormat:@"tel://%@", self.elevator.contactNumber ];
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tel]];
+    //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tel]];
     NSURL* telURL = [NSURL URLWithString:tel];
     UIWebView *mCallWebview = [[UIWebView alloc] init] ;
     [self.view addSubview:mCallWebview];
     [mCallWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
 }
 
-- (IBAction)stopElevator:(id)sender {
-    
-    if ([_switchButton.titleLabel.text  isEqual: @"Stop Elevator"]) {
-        NSError *error;
-        
-        //加载一个NSURL对象
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetAll=1"]];
-        //将请求的url数据放到NSData对象中
-        NSHTTPURLResponse* resp = [[NSHTTPURLResponse alloc]init];
-        
-        NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&resp error:nil];
-        
-        
-        _switchButton.titleLabel.text = @"Start Elevator";
-        _status.text = @"Stopped";
-    }else{
-        _switchButton.titleLabel.text= @"Stop Elevator";
-        _status.text = @"Normal";
-        
-    }
-    
-    
-    
-}
-
-#pragma mark - Table view data source
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -164,4 +118,5 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 @end

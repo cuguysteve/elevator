@@ -27,18 +27,122 @@
 
 @implementation GeneralTableViewController
 
+
+// OPT1 : seperate list into 3 lists
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.ol = [[DataObjectLayer alloc]init];
-//    [self.ol initData];
+    
     self.normalList = [self.ol requestNormalList];
     self.warningList = [self.ol requestWarningList];
     self.alertList = [self.ol requestAlertList];
+    self.allList = [self.ol requestAllList];
+
     self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
     if(self.timer){
         NSLog(@"timer is created");
     }
+}
+
+- (void)timerFired{
+    NSLog(@"timerFired");
+    NSArray* newAlertList = [self.ol requestAlertList];
+    bool showAlert = false;
+    NSMutableString* message = [[NSMutableString alloc]init];
+    
+    
+    for(ElevatorObject* ob in [newAlertList objectEnumerator]){
+        if ([self.alertList containsObject:ob]) {
+            continue;
+        }
+        showAlert = true;
+        [message appendFormat:@"Alert: %@ \n",ob.address];
+    }
+    
+    // Using Local Notification when app is in background mode
+    //        UILocalNotification* not = [[UILocalNotification alloc]init];
+    //        if (not) {
+    //            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    //            not.alertBody = [[NSString alloc]initWithFormat:@"new alert: %@",ob.address];
+    //            not.alertAction = NSLocalizedString(@"Please check", nil);
+    //            not.soundName = UILocalNotificationDefaultSoundName;
+    //            not.applicationIconBadgeNumber++;
+    //        }
+    //        [[UIApplication sharedApplication]presentLocalNotificationNow:not];
+    
+    
+    if (showAlert) {
+        UIAlertView* alert  = [[UIAlertView alloc]initWithTitle:@"new alert" message:message delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [alert show];
+        [map refreshAnnotations];
+    }
+    
+    
+    self.alertList = newAlertList;
+    self.warningList = [self.ol requestWarningList];
+    self.normalList = [self.ol requestNormalList];
+    self.allList = [self.ol requestAllList];
+
+    [self.tableView reloadData];
+    
+}
+
+//// OPT2: one list contains all list (AERTING/WARNING/NORMAL)
+//- (void)viewDidLoad {
+//    [super viewDidLoad];
+//    
+//    self.ol = [[DataObjectLayer alloc]init];
+//    
+//    self.allList = [self.ol requestAllList];
+//
+//    self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
+//    if(self.timer){
+//        NSLog(@"timer is created");
+//    }
+//}
+//
+//- (void)timerFired{
+//    NSLog(@"timerFired");
+//    NSArray* newList = [self.ol requestAllList];
+//    bool showAlert = false;
+//    NSMutableString* message = [[NSMutableString alloc]init];
+//    
+//    
+//    for(ElevatorObject* ob in [newList objectEnumerator]){
+//        if ([self.alertList containsObject:ob]) {
+//            continue;
+//        }
+//        showAlert = true;
+//        [message appendFormat:@"Alert: %@ \n",ob.address];
+//    }
+//    
+//    // Using Local Notification when app is in background mode
+//    //        UILocalNotification* not = [[UILocalNotification alloc]init];
+//    //        if (not) {
+//    //            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+//    //            not.alertBody = [[NSString alloc]initWithFormat:@"new alert: %@",ob.address];
+//    //            not.alertAction = NSLocalizedString(@"Please check", nil);
+//    //            not.soundName = UILocalNotificationDefaultSoundName;
+//    //            not.applicationIconBadgeNumber++;
+//    //        }
+//    //        [[UIApplication sharedApplication]presentLocalNotificationNow:not];
+//    
+//    
+//    if (showAlert) {
+//        UIAlertView* alert  = [[UIAlertView alloc]initWithTitle:@"new alert" message:message delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+//        [alert show];
+//        [map refreshAnnotations];
+//    }
+//    
+//    self.allList = [self.ol requestAllList];
+//    [self.tableView reloadData];
+//    
+//}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -54,51 +158,6 @@
         map = (MapViewController *)segue.destinationViewController;
         map.generalTable = self;
     }
-}
-
-- (void)timerFired{
-    NSLog(@"timerFired");
-    NSArray* newAlertList = [self.ol requestAlertList];
-    bool showAlert = false;
-    NSMutableString* message = [[NSMutableString alloc]init];
-
-    
-    for(ElevatorObject* ob in [newAlertList objectEnumerator]){
-        if ([self.alertList containsObject:ob]) {
-            continue;
-        }
-        showAlert = true;
-        [message appendFormat:@"Alert: %@ \n",ob.address];
-    }
-
-// Using Local Notification when app is in background mode
-//        UILocalNotification* not = [[UILocalNotification alloc]init];
-//        if (not) {
-//            [[UIApplication sharedApplication] cancelAllLocalNotifications];
-//            not.alertBody = [[NSString alloc]initWithFormat:@"new alert: %@",ob.address];
-//            not.alertAction = NSLocalizedString(@"Please check", nil);
-//            not.soundName = UILocalNotificationDefaultSoundName;
-//            not.applicationIconBadgeNumber++;
-//        }
-//        [[UIApplication sharedApplication]presentLocalNotificationNow:not];
-        
-        
-    if (showAlert) {
-        UIAlertView* alert  = [[UIAlertView alloc]initWithTitle:@"new alert" message:message delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-        [alert show];
-    }
-
-    
-    self.alertList = newAlertList;
-    self.warningList = [self.ol requestWarningList];
-    self.normalList = [self.ol requestNormalList];
-    [self.tableView reloadData];
-    map.refreshAnnotations;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source

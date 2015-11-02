@@ -10,6 +10,7 @@
 
 @interface GeneralTableViewController : UITableViewController
 
+@property (copy) NSArray* allList;
 @property (copy) NSArray* normalList;
 @property (copy) NSArray* warningList;
 @property (copy) NSArray* alertList;

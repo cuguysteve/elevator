@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import ElevatorList
-from .models import Elevator
+from .models import EleList, EleAlarm
 
-admin.site.register(ElevatorList )
-admin.site.register(Elevator )
+admin.site.register(EleList)
+admin.site.register(EleAlarm)
+

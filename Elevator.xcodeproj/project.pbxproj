@@ -17,6 +17,8 @@
 		CE8FB9F71B8D6AAA00CA22D3 /* GeneralTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9F61B8D6AAA00CA22D3 /* GeneralTableViewController.m */; };
 		CE8FB9FA1B8D7A3100CA22D3 /* DataObjectLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9F91B8D7A3100CA22D3 /* DataObjectLayer.m */; };
 		CE8FB9FD1B8D7C1A00CA22D3 /* ElevatorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8FB9FC1B8D7C1A00CA22D3 /* ElevatorObject.m */; };
+		CED469DA1BB9491300236A00 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED469D91BB9491300236A00 /* MapViewController.m */; };
+		CED469DD1BB9493000236A00 /* ElevatorAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CED469DC1BB9493000236A00 /* ElevatorAnnotation.m */; };
 		CEE396D91B903967000E4551 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE396D71B903967000E4551 /* DetailTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +52,10 @@
 		CE8FB9F91B8D7A3100CA22D3 /* DataObjectLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataObjectLayer.m; sourceTree = "<group>"; };
 		CE8FB9FB1B8D7C1A00CA22D3 /* ElevatorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElevatorObject.h; sourceTree = "<group>"; };
 		CE8FB9FC1B8D7C1A00CA22D3 /* ElevatorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElevatorObject.m; sourceTree = "<group>"; };
+		CED469D81BB9491300236A00 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		CED469D91BB9491300236A00 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		CED469DB1BB9492700236A00 /* ElevatorAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevatorAnnotation.h; sourceTree = "<group>"; };
+		CED469DC1BB9493000236A00 /* ElevatorAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElevatorAnnotation.m; sourceTree = "<group>"; };
 		CEE396D61B903967000E4551 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		CEE396D71B903967000E4551 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,6 +99,10 @@
 		CE8FB9CB1B8D6A0C00CA22D3 /* Elevator */ = {
 			isa = PBXGroup;
 			children = (
+				CED469DC1BB9493000236A00 /* ElevatorAnnotation.m */,
+				CED469DB1BB9492700236A00 /* ElevatorAnnotation.h */,
+				CED469D81BB9491300236A00 /* MapViewController.h */,
+				CED469D91BB9491300236A00 /* MapViewController.m */,
 				CE8FB9D01B8D6A0C00CA22D3 /* AppDelegate.h */,
 				CE8FB9D11B8D6A0C00CA22D3 /* AppDelegate.m */,
 				CE8FB9D31B8D6A0C00CA22D3 /* FirstViewController.h */,
@@ -242,6 +252,8 @@
 				CE8FB9FA1B8D7A3100CA22D3 /* DataObjectLayer.m in Sources */,
 				CE8FB9D21B8D6A0C00CA22D3 /* AppDelegate.m in Sources */,
 				CEE396D91B903967000E4551 /* DetailTableViewController.m in Sources */,
+				CED469DA1BB9491300236A00 /* MapViewController.m in Sources */,
+				CED469DD1BB9493000236A00 /* ElevatorAnnotation.m in Sources */,
 				CE8FB9FD1B8D7C1A00CA22D3 /* ElevatorObject.m in Sources */,
 				CE8FB9F71B8D6AAA00CA22D3 /* GeneralTableViewController.m in Sources */,
 				CE8FB9D51B8D6A0C00CA22D3 /* FirstViewController.m in Sources */,

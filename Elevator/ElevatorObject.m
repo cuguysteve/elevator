@@ -39,6 +39,8 @@
     [aCoder encodeObject:self.contactNumber forKey:@"ContactKey"];
     [aCoder encodeObject:self.contactPerson forKey:@"PersonKey"];
     [aCoder encodeObject:self.date forKey:@"Date"];
+    [aCoder encodeFloat:self.latitude forKey:@"Latitude"];
+    [aCoder encodeFloat:self.longtitude forKey:@"Longtitude"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
@@ -50,6 +52,8 @@
         _contactNumber = [aDecoder decodeObjectForKey:@"ContactKey"];
         _contactPerson = [aDecoder decodeObjectForKey:@"PersonKey"];
         _date = [aDecoder decodeObjectForKey:@"Date"];
+        _latitude = [aDecoder decodeFloatForKey:@"Latitude"];
+        _longtitude = [aDecoder decodeFloatForKey:@"Longtitude"];
     }
     return self;
 }// NS_DESIGNATED_INITIALIZER
