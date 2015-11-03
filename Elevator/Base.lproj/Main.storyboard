@@ -148,7 +148,7 @@
         <!--Detail Table View Controller-->
         <scene sceneID="4cq-cX-5s4">
             <objects>
-                <tableViewController id="bKN-NX-54s" customClass="DetailTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="detailTableView" id="bKN-NX-54s" customClass="DetailTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Lya-64-Ttk">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -233,7 +233,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCl-YR-gji">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCl-YR-gji">
                                                     <rect key="frame" x="481" y="7" width="93" height="30"/>
                                                     <accessibility key="accessibilityConfiguration" label=""/>
                                                     <state key="normal" title="Stop Elevator">
@@ -244,6 +244,10 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="iCl-YR-gji" secondAttribute="trailing" constant="11" id="ktY-AG-Tjt"/>
+                                                <constraint firstItem="iCl-YR-gji" firstAttribute="top" secondItem="R6g-dZ-KhE" secondAttribute="topMargin" constant="-1" id="lxm-it-X3E"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qpZ-4Q-Pw6">
@@ -365,7 +369,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
@@ -378,14 +381,15 @@
                         <segue destination="XUA-a5-iLZ" kind="relationship" relationship="viewControllers" id="UkJ-eW-q77"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--Item-->
+        <!--Elevator List-->
         <scene sceneID="yJw-k0-170">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XUA-a5-iLZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="SQy-2I-dQj"/>
+                    <tabBarItem key="tabBarItem" title="Elevator List" id="SQy-2I-dQj"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dBG-VM-leS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

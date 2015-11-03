@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MKAnnotation.h>
 #import <UIKit/UIImage.h>
+#import "ElevatorObject.h"
 
 @interface ElevatorAnnotation : NSObject<MKAnnotation>
 
@@ -16,5 +17,6 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic,copy) UIImage *image;
+@property ElevatorObject* elevator;
 
 @end

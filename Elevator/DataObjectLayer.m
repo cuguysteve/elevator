@@ -230,12 +230,14 @@
     //将请求的url数据放到NSData对象中
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-    NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
-    
-    NSLog(@"字典里面的内容为--》%@", projDic );
-    NSLog(@"error is %@", error);
+
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
+    
+    if (response == nil) {
+        return array;
+    }
+    NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
     
     // test用代码
 //    ElevatorObject* el = [[ElevatorObject alloc]init];

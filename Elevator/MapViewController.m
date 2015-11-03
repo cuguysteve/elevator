@@ -19,7 +19,7 @@
     CLLocation *_location;
     MKMapView *_mapView;
     NSMutableArray* annotations;
-    DetailTableViewController* details;
+    ElevatorAnnotation* _pointAnno;
 }
 @property (weak, nonatomic) IBOutlet UIButton *zoomIn;
 @property (weak, nonatomic) IBOutlet UIButton *zoomOut;
@@ -100,6 +100,7 @@
             default:
                 break;
         }
+        ann.elevator = tmp;
 
         [annotations addObject:ann];
         [_mapView addAnnotation: ann];
@@ -160,19 +161,6 @@
         _location=placemark.location;//位置
         CLRegion *region=placemark.region;//区域
         NSDictionary *addressDic= placemark.addressDictionary;//详细地址信息字典,包含以下部分信息
-        //        NSString *name=placemark.name;//地名
-        //        NSString *thoroughfare=placemark.thoroughfare;//街道
-        //        NSString *subThoroughfare=placemark.subThoroughfare; //街道相关信息，例如门牌等
-        //        NSString *locality=placemark.locality; // 城市
-        //        NSString *subLocality=placemark.subLocality; // 城市相关信息，例如标志性建筑
-        //        NSString *administrativeArea=placemark.administrativeArea; // 州
-        //        NSString *subAdministrativeArea=placemark.subAdministrativeArea; //其他行政区域信息
-        //        NSString *postalCode=placemark.postalCode; //邮编
-        //        NSString *ISOcountryCode=placemark.ISOcountryCode; //国家编码
-        //        NSString *country=placemark.country; //国家
-        //        NSString *inlandWater=placemark.inlandWater; //水源、湖泊
-        //        NSString *ocean=placemark.ocean; // 海洋
-        //        NSArray *areasOfInterest=placemark.areasOfInterest; //关联的或利益相关的地标
         NSLog(@"位置:%@,区域:%@,详细信息:%@",_location,region,addressDic);
 //        [_mapView setCenterCoordinate:_location.coordinate];
         [_mapView setRegion:MKCoordinateRegionMakeWithDistance(_location.coordinate, 750, 750) animated:true];
@@ -232,6 +220,29 @@
         //如果缓存池中不存在则新建
         if (!annotationView) {
             annotationView=[[MKAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:key1];
+            
+            
+            
+            // add a detail disclosure button to the callout which will open a new view controller page or a popover
+            
+            //
+            
+            // note: when the detail disclosure button is tapped, we respond to it via:
+            
+            //       calloutAccessoryControlTapped delegate method
+            
+            //
+            
+            // by using "calloutAccessoryControlTapped", it's a convenient way to find out which annotation was tapped
+            
+            //
+            _pointAnno = annotation;
+            
+            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            
+            [rightButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            annotationView.rightCalloutAccessoryView = rightButton;
             annotationView.canShowCallout=true;//允许交互点击
             annotationView.calloutOffset=CGPointMake(0, 1);//定义详情视图偏移量
             annotationView.leftCalloutAccessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_classify_cafe.png"]];//定义详情左侧视图
@@ -266,6 +277,57 @@
 //    }
 //
 //}
+- (void)buttonAction:(id)sender
+
+{
+    
+    NSLog(@"clicked Golden Gate Bridge annotation");
+    
+    
+    
+    DetailTableViewController *detailViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"detailTableView"];
+    
+    detailViewController.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    detailViewController.modalPresentationStyle = UIModalPresentationPopover;
+    detailViewController.elevator = _pointAnno.elevator;
+    
+    UIPopoverPresentationController *presentationController = detailViewController.popoverPresentationController;
+    
+    
+    
+    // display popover from the UIButton (sender) as the anchor
+    
+    presentationController.sourceRect = [sender frame];
+    
+    UIButton *button = (UIButton *)sender;
+    
+    presentationController.sourceView = button.superview;
+    
+    
+    
+    presentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    
+    
+    
+    // not required, but useful for presenting "contentVC" in a compact screen so that it
+    
+    // can be dismissed as a full screen view controller)
+    
+    //
+//    
+//    presentationController.delegate = self;
+    
+    [[self navigationController]pushViewController:detailViewController animated:YES];
+    
+//    [self presentViewController:detailViewController animated:YES completion:^{
+//        
+//        //.. done
+//        
+//    }];
+    
+}
+
 
 
 @end

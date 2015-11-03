@@ -81,11 +81,20 @@
         NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&resp error:nil];
         
         
-        _switchButton.titleLabel.text = @"Start Elevator";
         _status.text = @"Stopped";
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _switchButton.titleLabel.text = @"Start Elevator";
+            [_switchButton.titleLabel setNeedsDisplay];
+        });
+
     }else{
-        _switchButton.titleLabel.text= @"Stop Elevator";
+
         _status.text = @"Normal";
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _switchButton.titleLabel.text = @"Stop Elevator";
+            [_switchButton.titleLabel setNeedsDisplay];
+        });
         
     }
     
