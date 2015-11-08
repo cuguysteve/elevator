@@ -7,19 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GeneralTableViewController.h"
 #import "ElevatorObject.h"
 
 @interface DataObjectLayer : NSObject
 
+@property GeneralTableViewController* generalTable;
+
+
 - (ElevatorObject*) requestBySn:(NSString*) sn;
-- (NSArray*) requestAlertList;
-- (NSArray*) requestWarningList;
-- (NSArray*) requestNormalList;
-- (NSArray*) requestAllList;
+- (void) requestAlertList;
+- (void) requestWarningList;
+- (void) requestNormalList;
+- (void) requestAllList;
 
-- (void)initData;
-
-//for test Json
-- (NSString*) requestTest;
 
 @end

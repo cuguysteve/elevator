@@ -65,7 +65,7 @@
     
     _geocoder = [[CLGeocoder alloc]init];
 
-    [self getCoordinateByAddress:@"上海市天山西路1068号A栋"];
+//    [self getCoordinateByAddress:@"上海市天山西路1068号A栋"];
     
 //    [self getCoordinateByAddress:@"No. 1068 Tianshan West Road , shanghai , china"];
     

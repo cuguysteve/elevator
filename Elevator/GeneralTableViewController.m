@@ -11,9 +11,13 @@
 #import "DataObjectLayer.h"
 #import "MapViewController.h"
 
+static int n = 0;
+
 @interface GeneralTableViewController (){
     DetailTableViewController* details;
     MapViewController* map;
+    bool showAlert;
+    NSMutableString* message;
     
 }
 - (IBAction)presentInMap:(id)sender;
@@ -33,11 +37,12 @@
     [super viewDidLoad];
     
     self.ol = [[DataObjectLayer alloc]init];
+    self.ol.generalTable = self;
     
-    self.normalList = [self.ol requestNormalList];
-    self.warningList = [self.ol requestWarningList];
-    self.alertList = [self.ol requestAlertList];
-    self.allList = [self.ol requestAllList];
+    [self.ol requestNormalList];
+    [self.ol requestWarningList];
+    [self.ol requestAlertList];
+    [self.ol requestAllList];
 
     self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
     if(self.timer){
@@ -46,46 +51,123 @@
 }
 
 - (void)timerFired{
-    NSLog(@"timerFired");
-    NSArray* newAlertList = [self.ol requestAlertList];
-    bool showAlert = false;
-    NSMutableString* message = [[NSMutableString alloc]init];
-    
-    
-    for(ElevatorObject* ob in [newAlertList objectEnumerator]){
-        if ([self.alertList containsObject:ob]) {
-            continue;
-        }
-        showAlert = true;
-        [message appendFormat:@"Alert: %@ \n",ob.address];
-    }
-    
-    // Using Local Notification when app is in background mode
-    //        UILocalNotification* not = [[UILocalNotification alloc]init];
-    //        if (not) {
-    //            [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    //            not.alertBody = [[NSString alloc]initWithFormat:@"new alert: %@",ob.address];
-    //            not.alertAction = NSLocalizedString(@"Please check", nil);
-    //            not.soundName = UILocalNotificationDefaultSoundName;
-    //            not.applicationIconBadgeNumber++;
-    //        }
-    //        [[UIApplication sharedApplication]presentLocalNotificationNow:not];
-    
-    
-    if (showAlert) {
-        UIAlertView* alert  = [[UIAlertView alloc]initWithTitle:@"new alert" message:message delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+
+    if (showAlert&&n!=0) {
+        
+        UIAlertView* alert  = [[UIAlertView alloc]initWithTitle:@"new alert" message:message delegate:nil cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"OK", nil];
+        
         [alert show];
-        [map refreshAnnotations];
     }
-    
-    
-    self.alertList = newAlertList;
-    self.warningList = [self.ol requestWarningList];
-    self.normalList = [self.ol requestNormalList];
-    self.allList = [self.ol requestAllList];
+    showAlert = false;
+    NSLog(@"timerFired");
+    [self.ol requestNormalList];
+    [self.ol requestWarningList];
+    [self.ol requestAlertList];
+    [self.ol requestAllList];
 
     [self.tableView reloadData];
+    n++;
+//    NSArray* newAlertList = [self.ol requestAlertList];
+//    bool showAlert = false;
+//    NSMutableString* message = [[NSMutableString alloc]init];
+//    
+//    
+//    for(ElevatorObject* ob in [newAlertList objectEnumerator]){
+//        if ([self.alertList containsObject:ob]) {
+//            continue;
+//        }
+//        showAlert = true;
+//        [message appendFormat:@"Alert: %@ \n",ob.address];
+//    }
+//    
+//    // Using Local Notification when app is in background mode
+//    //        UILocalNotification* not = [[UILocalNotification alloc]init];
+//    //        if (not) {
+//    //            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+//    //            not.alertBody = [[NSString alloc]initWithFormat:@"new alert: %@",ob.address];
+//    //            not.alertAction = NSLocalizedString(@"Please check", nil);
+//    //            not.soundName = UILocalNotificationDefaultSoundName;
+//    //            not.applicationIconBadgeNumber++;
+//    //        }
+//    //        [[UIApplication sharedApplication]presentLocalNotificationNow:not];
+//    
+//    
+//    if (showAlert) {
+//        UIAlertView* alert  = [[UIAlertView alloc]initWithTitle:@"new alert" message:message delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+//        [alert show];
+//        [map refreshAnnotations];
+//    }
+//    
+//    
+//    self.alertList = newAlertList;
+//    self.warningList = [self.ol requestWarningList];
+//    self.normalList = [self.ol requestNormalList];
+//    self.allList = [self.ol requestAllList];
+//
+//    [self.tableView reloadData];
+}
+
+- (void) updateAlert:(NSArray*)array{
+
+    message = [[NSMutableString alloc]init];
     
+    if (n == 0) {
+        self.alertList = array;
+        
+    }
+    else{
+        for(ElevatorObject* ob in [array objectEnumerator]){
+            
+            if ([self.alertList containsObject:ob]) {
+                continue;
+                
+            }
+            
+            showAlert = true;
+            [message appendFormat:@"Alert: %@ \n",ob.address];
+            
+        }
+        self.alertList = array;
+    }
+    
+    
+    
+    
+    
+        // Using Local Notification when app is in background mode
+        //        UILocalNotification* not = [[UILocalNotification alloc]init];
+        //        if (not) {
+        //            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+        //            not.alertBody = [[NSString alloc]initWithFormat:@"new alert: %@",ob.address];
+        //            not.alertAction = NSLocalizedString(@"Please check", nil);
+        //            not.soundName = UILocalNotificationDefaultSoundName;
+        //            not.applicationIconBadgeNumber++;
+        //        }
+        //        [[UIApplication sharedApplication]presentLocalNotificationNow:not];
+    
+    
+}
+- (void) updateWarning:(NSArray*)array{
+    self.alertList = array;
+    
+}
+- (void) updateNormal:(NSArray*)array{
+    self.normalList = array;
+}
+
+- (void) updateAll:(NSArray*)array{
+    bool allListUpdated = false;
+    for(ElevatorObject* ob in [array objectEnumerator]){
+        if ([self.allList containsObject:ob]) {
+            continue;
+        }
+        allListUpdated = true;
+    }
+    self.allList = array;
+    if (allListUpdated) {
+        [map refreshAnnotations];
+    }
 }
 
 //// OPT2: one list contains all list (AERTING/WARNING/NORMAL)

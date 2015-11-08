@@ -14,5 +14,9 @@
 @property (copy) NSArray* normalList;
 @property (copy) NSArray* warningList;
 @property (copy) NSArray* alertList;
+- (void) updateAlert:(NSArray*)array;
+- (void) updateWarning:(NSArray*)array;
+- (void) updateNormal:(NSArray*)array;
+- (void) updateAll:(NSArray*)array;
 
 @end
