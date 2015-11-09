@@ -16,9 +16,6 @@ static int n = 0;
 @interface GeneralTableViewController (){
     DetailTableViewController* details;
     MapViewController* map;
-    bool showAlert;
-    NSMutableString* message;
-    
 }
 - (IBAction)presentInMap:(id)sender;
 
@@ -52,22 +49,13 @@ static int n = 0;
 
 - (void)timerFired{
 
-    if (showAlert&&n!=0) {
-        
-        UIAlertView* alert  = [[UIAlertView alloc]initWithTitle:@"new alert" message:message delegate:nil cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"OK", nil];
-        
-        [alert show];
-    }
-    showAlert = false;
+
     NSLog(@"timerFired");
     [self.ol requestNormalList];
     [self.ol requestWarningList];
     [self.ol requestAlertList];
     [self.ol requestAllList];
 
-    [self.tableView reloadData];
-    n++;
 //    NSArray* newAlertList = [self.ol requestAlertList];
 //    bool showAlert = false;
 //    NSMutableString* message = [[NSMutableString alloc]init];
@@ -110,13 +98,17 @@ static int n = 0;
 
 - (void) updateAlert:(NSArray*)array{
 
-    message = [[NSMutableString alloc]init];
+    NSMutableString* message = [[NSMutableString alloc]init];
+    bool showAlert = false;
     
     if (n == 0) {
         self.alertList = array;
-        
+        [self.tableView reloadData];
+        n =1;
     }
     else{
+
+        
         for(ElevatorObject* ob in [array objectEnumerator]){
             
             if ([self.alertList containsObject:ob]) {
@@ -128,7 +120,16 @@ static int n = 0;
             [message appendFormat:@"Alert: %@ \n",ob.address];
             
         }
+        if (showAlert) {
+            
+            UIAlertView* alert  = [[UIAlertView alloc]initWithTitle:@"new alert" message:message delegate:nil cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"OK", nil];
+            
+            [alert show];
+        }
         self.alertList = array;
+        [self.tableView reloadData];
+        
     }
     
     
@@ -150,10 +151,12 @@ static int n = 0;
 }
 - (void) updateWarning:(NSArray*)array{
     self.alertList = array;
+    [self.tableView reloadData];
     
 }
 - (void) updateNormal:(NSArray*)array{
     self.normalList = array;
+    [self.tableView reloadData];
 }
 
 - (void) updateAll:(NSArray*)array{
@@ -286,15 +289,10 @@ static int n = 0;
             elevator = self.warningList[indexPath.row];
             cell.imageView.image = [UIImage imageNamed:@"warning"];
     }else{
-//        if ([self.normalList count]==0) {
-//            cell.textLabel.text = @"None";
-//            cell.imageView.image = nil;
-//            cell.detailTextLabel.text = nil;
-//            return  cell;
-//        }else{
+
             elevator = self.normalList[indexPath.row];
             cell.imageView.image = [UIImage imageNamed:@"normal"];
-//        }
+
     }
     
     // Configure the cell...

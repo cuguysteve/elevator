@@ -42,7 +42,10 @@
         //        return obj1.status < obj2.status;
         //    }];
         
-        [self.generalTable updateAlert:[self decodeArrayFromData:data Response:response]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.generalTable updateAlert:[self decodeArrayFromData:data Response:response]];
+        });
         
     }];
     [task resume];
@@ -60,8 +63,9 @@
         //        return obj1.status < obj2.status;
         //    }];
         
-        [self.generalTable updateWarning:[self decodeArrayFromData:data Response:response]];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.generalTable updateWarning:[self decodeArrayFromData:data Response:response]];
+        });
     }];
 }
 
@@ -79,8 +83,9 @@
         //        return obj1.status < obj2.status;
         //    }];
         
-        [self.generalTable updateNormal: [self decodeArrayFromData:data Response:response]];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.generalTable updateNormal:[self decodeArrayFromData:data Response:response]];
+        });
     }];
 }
 
@@ -96,8 +101,9 @@
         //        return obj1.status < obj2.status;
         //    }];
         
-        [self.generalTable  updateAll:[self decodeArrayFromData:data Response:response]];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.generalTable updateAll:[self decodeArrayFromData:data Response:response]];
+        });
     }];
     
 }

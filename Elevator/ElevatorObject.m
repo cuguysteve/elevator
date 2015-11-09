@@ -13,8 +13,8 @@
 - (BOOL)isEqual:(id)object{
     if ([object isKindOfClass:[self class]]) {
         ElevatorObject* comp = (ElevatorObject*)object;
-        BOOL result =  (comp.sn == _sn && [comp.address isEqualToString:_address]);
-        return result;
+        
+        return comp.sn == _sn;
 //
 //        return (comp.sn == _sn && comp.status == _status
 //        && comp.address == _address && comp.contactNumber == _contactNumber
