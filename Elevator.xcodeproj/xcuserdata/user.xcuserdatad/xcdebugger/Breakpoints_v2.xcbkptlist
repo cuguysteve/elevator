@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Elevator/DetailTableViewController.m"
-            timestampString = "468240019.280882"
+            filePath = "Elevator/DataObjectLayer.m"
+            timestampString = "468841828.886408"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "-stopElevator:"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "-requestAlarmListBySn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

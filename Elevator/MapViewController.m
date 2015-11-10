@@ -50,7 +50,7 @@
     [self.view bringSubviewToFront:self.zoomIn];
     [self.view bringSubviewToFront:self.zoomOut];
     //设置代理
-    _mapView.delegate=self;
+//    _mapView.delegate=self;
     //请求定位服务
     _locationManager=[[CLLocationManager alloc]init];
     if(![CLLocationManager locationServicesEnabled]||[CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorizedWhenInUse){

@@ -17,7 +17,6 @@ static int n = 0;
     DetailTableViewController* details;
     MapViewController* map;
 }
-- (IBAction)presentInMap:(id)sender;
 
 
 @property DataObjectLayer* ol;

@@ -7,9 +7,12 @@
 //
 
 #import "DetailTableViewController.h"
+#import "AlarmTableViewController.h"
 
 
-@interface DetailTableViewController ()
+@interface DetailTableViewController (){
+    AlarmTableViewController* alarmTable;
+}
 @property (weak, nonatomic) IBOutlet UILabel *address;
 @property (weak, nonatomic) IBOutlet UILabel *manufactor;
 @property (weak, nonatomic) IBOutlet UILabel *sn;
@@ -93,4 +96,22 @@
         _status.text = @"Stopped";
     }
 }
+- (IBAction)alarmHistory:(id)sender {
+    [self performSegueWithIdentifier:@"alarmDetails" sender:nil];
+}
+
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    if ([segue.identifier isEqualToString:@"alarmDetails"])
+    {
+        NSLog(@"go to details view");
+        alarmTable = ( AlarmTableViewController*)segue.destinationViewController;
+        alarmTable.sn = self.elevator.sn;
+    }
+
+}
+
 @end

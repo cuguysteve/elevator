@@ -32,11 +32,11 @@
 - (void) requestAlertList{
     
     //加载一个NSURL对象
-//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetStatus0=1"]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://127.0.0.1:8000/getalert/"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetStatus0=1"]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://127.0.0.1:8000/getalert/"]];
     
     NSURLSession* session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *  data, NSURLResponse *  response, NSError *  error) {
         
         //    [array sortedArrayUsingComparator:^NSComparisonResult(ElevatorObject* obj1, ElevatorObject* obj2) {
         //        return obj1.status < obj2.status;
@@ -44,7 +44,7 @@
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.generalTable updateAlert:[self decodeArrayFromData:data Response:response]];
+            [self.generalTable updateAlert:[self decodeElevatorArrayFromData:data Response:response]];
         });
         
     }];
@@ -57,16 +57,17 @@
     //加载一个NSURL对象
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetStatus1=1"]];
     NSURLSession* session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *  data, NSURLResponse *  response, NSError *  error) {
         
         //    [array sortedArrayUsingComparator:^NSComparisonResult(ElevatorObject* obj1, ElevatorObject* obj2) {
         //        return obj1.status < obj2.status;
         //    }];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.generalTable updateWarning:[self decodeArrayFromData:data Response:response]];
+            [self.generalTable updateWarning:[self decodeElevatorArrayFromData:data Response:response]];
         });
     }];
+    [task resume];
 }
 
 
@@ -84,9 +85,10 @@
         //    }];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.generalTable updateNormal:[self decodeArrayFromData:data Response:response]];
+            [self.generalTable updateNormal:[self decodeElevatorArrayFromData:data Response:response]];
         });
     }];
+    [task resume];
 }
 
 
@@ -102,14 +104,15 @@
         //    }];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.generalTable updateAll:[self decodeArrayFromData:data Response:response]];
+            [self.generalTable updateAll:[self decodeElevatorArrayFromData:data Response:response]];
         });
     }];
+    [task resume];
     
 }
 
 
-- (NSArray*) decodeArrayFromData:(NSData* )data Response:(NSURLResponse*)response{
+- (NSArray*) decodeElevatorArrayFromData:(NSData* )data Response:(NSURLResponse*)response{
 
     //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
     NSError* error = nil;
@@ -191,6 +194,63 @@
     }
     
     return array;
+}
+
+- (void) requestAlarmListBySn:(NSInteger) sn{
+//    NSString *url = [NSString stringWithFormat:@"http:// do?BootStrap=1%ld", (long)sn];
+//    NSString *url = @"http://146.11.25.2:53101/do?BootStrap=1";
+//    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+//    NSURLSession* session = [NSURLSession sharedSession];
+//    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetAll=1"]];
+    
+//    NSURLResponse* response = [[NSURLResponse alloc]init];
+//    NSError* error = nil;
+//    
+//    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+//    NSMutableArray* array = [[NSMutableArray alloc]init];
+//    
+//    NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+//    NSEnumerator* it = [projDic keyEnumerator];
+//    
+//    for (NSString* key in it) {
+//        NSDictionary* alarmdic = [projDic objectForKey:key];
+//        Alarm* alarm = [[Alarm alloc]init];
+//        alarm.level = [[alarmdic objectForKey:@"Alarm"] intValue];
+//        alarm.date = [alarmdic objectForKey:@"Datetime"];
+//        [array addObject:alarm];
+//    }
+//    
+//    
+//    [self.alarmTable updateAlarmList:array];
+    
+    
+    NSURLSession* session = [NSURLSession sharedSession];
+
+    
+    NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
+        NSMutableArray* array = [[NSMutableArray alloc]init];
+        
+        NSDictionary *projDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        NSEnumerator* it = [projDic keyEnumerator];
+        
+        for (NSString* key in it) {
+            NSDictionary* alarmdic = [projDic objectForKey:key];
+            Alarm* alarm = [[Alarm alloc]init];
+            alarm.level = [[alarmdic objectForKey:@"Alarm"] intValue];
+            alarm.date = [alarmdic objectForKey:@"Datetime"];
+            [array addObject:alarm];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.alarmTable updateAlarmList:array];
+            
+        });
+        
+    }];
+    [task resume];
+    
 }
 
 @end

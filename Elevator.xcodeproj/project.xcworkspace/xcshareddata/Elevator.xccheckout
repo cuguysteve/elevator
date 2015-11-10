@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>C3EBDCD8-0A61-44E1-B157-F13D9E4E2234</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>Elevator</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>0CF395DFB04201B0DEC423CA371AF9786E9581CB</key>
 		<string>https://github.com/cuguysteve/elevator.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Elevator.xcodeproj/project.xcworkspace</string>
+	<string>Elevator.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>0CF395DFB04201B0DEC423CA371AF9786E9581CB</key>
