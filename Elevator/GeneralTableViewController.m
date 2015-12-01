@@ -149,7 +149,7 @@ static int n = 0;
     
 }
 - (void) updateWarning:(NSArray*)array{
-    self.alertList = array;
+    self.warningList = array;
     [self.tableView reloadData];
     
 }

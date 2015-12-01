@@ -16,7 +16,7 @@ enum ElevatorStatus {
 
 @interface ElevatorObject : NSObject <NSCopying, NSCoding>
 
-@property int sn;
+@property NSString* sn;
 @property NSString* address;
 @property int status;
 @property NSString* contactPerson;

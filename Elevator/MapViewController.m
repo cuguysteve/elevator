@@ -281,10 +281,6 @@
 
 {
     
-    NSLog(@"clicked Golden Gate Bridge annotation");
-    
-    
-    
     DetailTableViewController *detailViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"detailTableView"];
     
     detailViewController.edgesForExtendedLayout = UIRectEdgeNone;

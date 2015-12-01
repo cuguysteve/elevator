@@ -33,7 +33,7 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
-    [aCoder encodeInt:self.sn forKey:@"SnKey"];
+    [aCoder encodeObject:self.sn forKey:@"SnKey"];
     [aCoder encodeInt:self.status forKey:@"StatusKey"];
     [aCoder encodeObject:self.address forKey:@"AddressKey"];
     [aCoder encodeObject:self.contactNumber forKey:@"ContactKey"];
@@ -46,7 +46,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if(self){
-        _sn = [aDecoder decodeIntForKey:@"SnKey"];
+        _sn = [aDecoder decodeObjectForKey:@"SnKey"];
         _status = [aDecoder decodeIntForKey:@"StatusKey"];
         _address = [aDecoder decodeObjectForKey:@"AddressKey"];
         _contactNumber = [aDecoder decodeObjectForKey:@"ContactKey"];

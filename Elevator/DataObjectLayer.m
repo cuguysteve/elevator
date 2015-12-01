@@ -8,6 +8,12 @@
 
 #import "DataObjectLayer.h"
 
+NSString* allElevatorUrl = @"http://192.168.0.116:8080/do/?GetAll=1";
+NSString* alertElevatorUrl = @"http://192.168.0.116:8080/do/?GetStatus0=1";
+NSString* warningElevatorUrl = @"http://192.168.0.116:8080/do/?GetStatus1=1";
+NSString* normalElevatorUrl = @"http://192.168.0.116:8080/do/?GetStatus2=1";
+NSString* alarmListUrl = @"http://192.168.0.116:8080/do/?GetParameter=1";
+
 @implementation DataObjectLayer
 
 - (NSString*)filePath{
@@ -32,7 +38,7 @@
 - (void) requestAlertList{
     
     //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetStatus0=1"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:alertElevatorUrl]];
 //    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://127.0.0.1:8000/getalert/"]];
     
     NSURLSession* session = [NSURLSession sharedSession];
@@ -55,7 +61,7 @@
 
     
     //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetStatus1=1"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:warningElevatorUrl]];
     NSURLSession* session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *  data, NSURLResponse *  response, NSError *  error) {
         
@@ -75,7 +81,7 @@
 - (void) requestNormalList{
     
     //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetStatus2=1"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:normalElevatorUrl]];
     
     NSURLSession* session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
@@ -95,7 +101,7 @@
 - (void) requestAllList{
     
     //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetAll=1"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:allElevatorUrl]];
     NSURLSession* session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
         
@@ -162,7 +168,7 @@
     
     for (NSString* ob in enumkey){
         ElevatorObject* el = [[ElevatorObject alloc]init];
-        el.sn = ob.intValue;
+        el.sn = ob;
         NSDictionary* eldic = [projDic objectForKey:ob];
         NSString* alarm = [eldic objectForKey:@"Status"];
         switch (alarm.intValue) {
@@ -202,7 +208,7 @@
 //    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
 //    NSURLSession* session = [NSURLSession sharedSession];
 //    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://146.11.25.2:53101/do/?GetAll=1"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:alarmListUrl]];
     
 //    NSURLResponse* response = [[NSURLResponse alloc]init];
 //    NSError* error = nil;

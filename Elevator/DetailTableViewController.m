@@ -8,7 +8,11 @@
 
 #import "DetailTableViewController.h"
 #import "AlarmTableViewController.h"
+#import "GeneralTableViewController.h"
 
+
+NSString* stopElevatorUrl = @"http://192.168.0.116:8080/do/?Contrl={%22SN%22:%22SN370032783%22,%22Action%22:%22STOP%22}";
+NSString* startElevatorUrl = @"http://192.168.0.116:8080/do/?Contrl={%22SN%22:%22SN370032783%22,%22Action%22:%22RUN,3,2%22}";
 
 @interface DetailTableViewController (){
     AlarmTableViewController* alarmTable;
@@ -33,7 +37,7 @@
     [super viewDidLoad];
     _address.text = _elevator.address;
     _manufactor.text = @"";
-    _sn.text = [NSString stringWithFormat:@"%d",_elevator.sn];
+    _sn.text = _elevator.sn;
     switch (_elevator.status) {
         case 0:
              _status.text = @"Alarm";
@@ -89,7 +93,7 @@
                 break;
         }
     }else{
-        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://stopelevatorurl"]];
+        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:stopElevatorUrl]];
         NSURLSession* session = [NSURLSession sharedSession];
         NSURLSessionDataTask* task =  [session dataTaskWithRequest:request];
         [task resume];
