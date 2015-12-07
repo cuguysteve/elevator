@@ -14,7 +14,7 @@
     if ([object isKindOfClass:[self class]]) {
         ElevatorObject* comp = (ElevatorObject*)object;
         
-        return comp.sn == _sn;
+        return [comp.sn isEqualToString: _sn];
 //
 //        return (comp.sn == _sn && comp.status == _status
 //        && comp.address == _address && comp.contactNumber == _contactNumber

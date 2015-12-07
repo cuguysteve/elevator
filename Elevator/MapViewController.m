@@ -50,7 +50,7 @@
     [self.view bringSubviewToFront:self.zoomIn];
     [self.view bringSubviewToFront:self.zoomOut];
     //设置代理
-//    _mapView.delegate=self;
+    _mapView.delegate=self;
     //请求定位服务
     _locationManager=[[CLLocationManager alloc]init];
     if(![CLLocationManager locationServicesEnabled]||[CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorizedWhenInUse){
@@ -79,6 +79,15 @@
     [_mapView removeAnnotations:annotations];
     
     for(ElevatorObject* tmp  in self.generalTable.allList){
+        bool exist = false;
+        for (ElevatorAnnotation* temp in annotations) {
+            if(temp.elevator == tmp){
+                exist = true;
+            }
+        }
+        if (exist) {
+            break;
+        }
         ElevatorAnnotation* ann = [[ElevatorAnnotation alloc]init];
         
         ann.coordinate = (CLLocationCoordinate2D){tmp.latitude-0.006,tmp.longtitude-0.0065};

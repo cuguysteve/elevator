@@ -60,5 +60,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>elevator3.png</string>
+	</array>
 </dict>
 </plist>

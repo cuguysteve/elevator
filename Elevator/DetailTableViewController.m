@@ -39,13 +39,13 @@ NSString* startElevatorUrl = @"http://192.168.0.116:8080/do/?Contrl={%22SN%22:%2
     _manufactor.text = @"";
     _sn.text = _elevator.sn;
     switch (_elevator.status) {
-        case 0:
+        case 2:
              _status.text = @"Alarm";
             break;
         case 1:
             _status.text = @"Warning";
             break;
-        case 2:
+        case 0:
             _status.text = @"Normal";
             break;
         default:
@@ -54,6 +54,9 @@ NSString* startElevatorUrl = @"http://192.168.0.116:8080/do/?Contrl={%22SN%22:%2
     _date.text = _elevator.date;
     _contactNumber.text = _elevator.contactNumber;
     _contactPerson.text = _elevator.contactPerson;
+    _contactNumber.text = @"13564244632";
+    _contactPerson.text = @"Steve";
+
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -80,13 +83,13 @@ NSString* startElevatorUrl = @"http://192.168.0.116:8080/do/?Contrl={%22SN%22:%2
     UISwitch* sw = (UISwitch*)sender;
     if(sw.isOn){
         switch (_elevator.status) {
-            case 0:
+            case 2:
                 _status.text = @"Alarm";
                 break;
             case 1:
                 _status.text = @"Warning";
                 break;
-            case 2:
+            case 0:
                 _status.text = @"Normal";
                 break;
             default:
@@ -100,11 +103,10 @@ NSString* startElevatorUrl = @"http://192.168.0.116:8080/do/?Contrl={%22SN%22:%2
         _status.text = @"Stopped";
     }
 }
+
 - (IBAction)alarmHistory:(id)sender {
     [self performSegueWithIdentifier:@"alarmDetails" sender:nil];
 }
-
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

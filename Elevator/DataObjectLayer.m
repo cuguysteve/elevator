@@ -9,9 +9,9 @@
 #import "DataObjectLayer.h"
 
 NSString* allElevatorUrl = @"http://192.168.0.116:8080/do/?GetAll=1";
-NSString* alertElevatorUrl = @"http://192.168.0.116:8080/do/?GetStatus0=1";
+NSString* alertElevatorUrl = @"http://192.168.0.116:8080/do/?GetStatus2=1";
 NSString* warningElevatorUrl = @"http://192.168.0.116:8080/do/?GetStatus1=1";
-NSString* normalElevatorUrl = @"http://192.168.0.116:8080/do/?GetStatus2=1";
+NSString* normalElevatorUrl = @"http://192.168.0.116:8080/do/?GetStatus0=1";
 NSString* alarmListUrl = @"http://192.168.0.116:8080/do/?GetParameter=1";
 
 @implementation DataObjectLayer
@@ -172,13 +172,13 @@ NSString* alarmListUrl = @"http://192.168.0.116:8080/do/?GetParameter=1";
         NSDictionary* eldic = [projDic objectForKey:ob];
         NSString* alarm = [eldic objectForKey:@"Status"];
         switch (alarm.intValue) {
-            case 0:
+            case 2:
                 el.status = ALERTING;
                 break;
             case 1:
                 el.status = WARNING;
                 break;
-            case 2:
+            case 0:
                 el.status = NORMAL;
                 break;
             default:

@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 enum ElevatorStatus {
-    ALERTING,
+    NORMAL,
     WARNING,
-    NORMAL
+    ALERTING
 };
 
 @interface ElevatorObject : NSObject <NSCopying, NSCoding>

@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "elevator.jpg",
+      "filename" : "elevator3.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "elevator2.jpg",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "elevator1.jpg",
       "scale" : "3x"
     }
   ],
